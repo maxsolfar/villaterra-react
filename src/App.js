@@ -22,7 +22,7 @@ function App() {
   }
 
   return (
-    <main className="bg-light dark:bg-dark">
+    <main className="bg-light dark:bg-[#1c1e22]">
       <NavBar theme={theme} handleThemeSwitch={handleThemeSwitch} />
       <Routes>
         <Route path="/" element={<Home />} />

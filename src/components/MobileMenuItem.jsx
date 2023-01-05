@@ -9,7 +9,7 @@ const MobileMenuItem = ({ title, url, status, setPage }) => {
           as={Link}
           to={url}
           onClick={setPage}
-          className="block border-l-4 border-primary bg-principal-100 py-2 pl-3 pr-4 text-base font-medium text-terceary sm:pl-5 sm:pr-6"
+          className="block border-l-4 border-primary-500 bg-primary-100 py-2 pl-3 pr-4 text-base font-medium text-terceary sm:pl-5 sm:pr-6"
         >
           {title}
         </Disclosure.Button>
