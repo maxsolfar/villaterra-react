@@ -1,25 +1,30 @@
-import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import {NavBar} from "./components";
-import { ForgotPassword, Home, Offers, Profile, SignIn, SignUp } from "./pages";
-
+import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { NavBar } from './components';
+import { ForgotPassword, Home, Offers, Profile, SignIn, SignUp } from './pages';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [theme, setTheme] = useState(localStorage.theme || "light");
+  const [theme, setTheme] = useState(localStorage.theme || 'light');
 
-  useEffect(()=>{
-    if (theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  useEffect(() => {
+    if (
+      theme === 'dark' ||
+      (!('theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
       localStorage.theme = 'dark';
       document.documentElement.classList.add('dark');
     } else {
       localStorage.theme = 'light';
       document.documentElement.classList.remove('dark');
     }
-  },[theme]);
+  }, [theme]);
 
   const handleThemeSwitch = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  }
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
 
   return (
     <main className="bg-light dark:bg-[#1c1e22]">
@@ -32,6 +37,18 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/offers" element={<Offers />} />
       </Routes>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme={theme}
+      />
     </main>
   );
 }
