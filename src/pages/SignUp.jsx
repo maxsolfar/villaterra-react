@@ -1,9 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsTwitter, BsFacebook } from 'react-icons/bs';
 import { AiOutlineGoogle } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
+import { db } from '../firebase';
+import { serverTimestamp, setDoc, doc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [data, setData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+  const { name, email, password, confirmPassword } = data;
+  const handleChange = (e) => {
+    setData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const auth = getAuth();
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+      const user = userCredentials.user;
+      const dataCopy = { ...data };
+      delete dataCopy.password;
+      dataCopy.timestamp = serverTimestamp();
+      await setDoc(doc(db, "users", user.uid), dataCopy);
+      toast.success("Created!");
+      navigate("/");
+    } catch (error) {
+      toast.error("Something went wrong with the sign up");
+    }
+  };
+
   return (
     <>
       <div className="flex min-h-full h-[calc(100vh-64px)]">
@@ -80,7 +129,7 @@ const SignUp = () => {
               </div>
 
               <div className="mt-6">
-                <form action="#" method="POST" className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label
                       htmlFor="name"
@@ -94,7 +143,8 @@ const SignUp = () => {
                         name="name"
                         type="text"
                         autoComplete="name"
-                        required
+                        value={name}
+                        onChange={handleChange}
                         className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                       />
                     </div>
@@ -112,7 +162,8 @@ const SignUp = () => {
                         name="email"
                         type="email"
                         autoComplete="email"
-                        required
+                        value={email}
+                        onChange={handleChange}
                         className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                       />
                     </div>
@@ -130,8 +181,9 @@ const SignUp = () => {
                         id="password"
                         name="password"
                         type="password"
-                        autoComplete="current-password"
-                        required
+                        autoComplete="password"
+                        value={password}
+                        onChange={handleChange}
                         className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                       />
                     </div>
@@ -139,18 +191,20 @@ const SignUp = () => {
 
                   <div className="space-y-1">
                     <label
-                      htmlFor="confirm-password"
+                      htmlFor="confirmPassword"
                       className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                     >
                       Confirm Password
                     </label>
                     <div className="mt-1">
                       <input
-                        id="confirm-password"
-                        name="confirm-password"
+                        id="confirmPassword"
+                        name="confirmPassword"
                         type="password"
-                        autoComplete="confirm-password"
-                        required
+                        autoComplete="confirmPassword"
+                        value={confirmPassword}
+                        onChange={handleChange}
+                        
                         className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                       />
                     </div>
