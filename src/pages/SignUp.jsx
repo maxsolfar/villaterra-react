@@ -2,15 +2,8 @@ import React, { useState } from 'react';
 import { BsTwitter, BsFacebook } from 'react-icons/bs';
 import { AiOutlineGoogle } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from 'firebase/auth';
-import { db } from '../firebase';
-import { serverTimestamp, setDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { signUp } from '../firebase/signUp';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -30,27 +23,8 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const auth = getAuth();
-      const userCredentials = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      updateProfile(auth.currentUser, {
-        displayName: name,
-      });
-      const user = userCredentials.user;
-      const dataCopy = { ...data };
-      delete dataCopy.password;
-      dataCopy.timestamp = serverTimestamp();
-      await setDoc(doc(db, "users", user.uid), dataCopy);
-      toast.success("Created!");
-      navigate("/");
-    } catch (error) {
-      toast.error("Something went wrong with the sign up");
-    }
+    signUp(email, password, name, data);
+    navigate("/");
   };
 
   return (
@@ -84,7 +58,7 @@ const SignUp = () => {
                     <div>
                       <a
                         href="/"
-                        className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-100"
+                        className="inline-flex w-full justify-center rounded-md border dark:bg-[#24272c] dark:hover:bg-dark border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-100"
                       >
                         <span className="sr-only">Sign up with Facebook</span>
                         <BsFacebook className="text-xl" />
@@ -94,7 +68,7 @@ const SignUp = () => {
                     <div>
                       <a
                         href="/"
-                        className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-100"
+                        className="inline-flex w-full justify-center rounded-md border dark:bg-[#24272c] dark:hover:bg-dark border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-100"
                       >
                         <span className="sr-only">Sign up with Twitter</span>
                         <BsTwitter className="text-xl" />
@@ -104,7 +78,7 @@ const SignUp = () => {
                     <div>
                       <a
                         href="/"
-                        className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-100"
+                        className="inline-flex w-full justify-center rounded-md border dark:bg-[#24272c] dark:hover:bg-dark border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-100"
                       >
                         <span className="sr-only">Sign up with Google</span>
                         <AiOutlineGoogle className="text-xl" />
@@ -121,7 +95,7 @@ const SignUp = () => {
                     <div className="w-full border-t border-gray-300" />
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="bg-gray-100 px-3 py-1 text-secondary-400 dark:text-secondary-400 rounded shadow">
+                    <span className="bg-gray-100 dark:bg-[#2b2f35] dark:text-light px-3 py-1 text-secondary-400 dark:text-secondary-400 rounded shadow">
                       Or continue with
                     </span>
                   </div>
@@ -145,7 +119,7 @@ const SignUp = () => {
                         autoComplete="name"
                         value={name}
                         onChange={handleChange}
-                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border dark:text-light dark:border-gray-700 dark:bg-[#24272c80] border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                       />
                     </div>
                   </div>
@@ -164,7 +138,7 @@ const SignUp = () => {
                         autoComplete="email"
                         value={email}
                         onChange={handleChange}
-                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border dark:text-light dark:border-gray-700 dark:bg-[#24272c80] border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                       />
                     </div>
                   </div>
@@ -184,7 +158,7 @@ const SignUp = () => {
                         autoComplete="password"
                         value={password}
                         onChange={handleChange}
-                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border dark:text-light dark:border-gray-700 dark:bg-[#24272c80] border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                       />
                     </div>
                   </div>
@@ -205,7 +179,7 @@ const SignUp = () => {
                         value={confirmPassword}
                         onChange={handleChange}
                         
-                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border dark:text-light dark:border-gray-700 dark:bg-[#24272c80] border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                       />
                     </div>
                   </div>
