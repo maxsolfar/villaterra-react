@@ -24,7 +24,9 @@ export const signUp = async (email, password, name, data) => {
     dataCopy.timestamp = serverTimestamp();
     await setDoc(doc(db, "users", user.uid), dataCopy);
     toast.success("Created!");
+    return "success";
   } catch (error) {
     toast.error("Something went wrong with the sign up");
+    return "error";
   }
 };

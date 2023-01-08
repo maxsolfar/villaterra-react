@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import { BsTwitter, BsFacebook } from 'react-icons/bs';
-import { AiOutlineGoogle } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import {
+  Button,
+  Heading,
+  Input,
+  Oauth,
+  RedirectAuth,
+  SeparatorText,
+} from '../components';
 import { signUp } from '../firebase/signUp';
 
 const SignUp = () => {
@@ -23,189 +28,59 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    signUp(email, password, name, data);
-    navigate("/");
+    signUp(email, password, name, data).then(
+      (result) => result === 'success' && navigate('/')
+    );
   };
 
   return (
     <>
-      <div className="flex min-h-full h-[calc(100vh-64px)]">
+      <section className="flex min-h-full h-[calc(100vh-64px)]">
         <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-28">
           <div className="mx-auto w-full max-w-sm lg:w-96">
-            <div>
-              <h2 className="mt-6 text-3xl font-bold tracking-tight text-secondary dark:text-gray-100">
-                Sign up to VillaTerra
-              </h2>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-200">
-                Or{' '}
-                <a
-                  href="/"
-                  className="font-medium text-primary-400 hover:text-primary-500"
-                >
-                  start your 14-day free trial
-                </a>
-              </p>
-            </div>
-
-            <div className="mt-8">
+            <Heading
+              title={'Create Account'}
+              ext={'and'}
+              subtitle={"join VillaTerra's community"}
+            />
+            <section className="mt-8">
               <div>
-                <div>
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                    Sign up with
-                  </p>
-
-                  <div className="mt-1 grid grid-cols-3 gap-3">
-                    <div>
-                      <a
-                        href="/"
-                        className="inline-flex w-full justify-center rounded-md border dark:bg-[#24272c] dark:hover:bg-dark border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-100"
-                      >
-                        <span className="sr-only">Sign up with Facebook</span>
-                        <BsFacebook className="text-xl" />
-                      </a>
-                    </div>
-
-                    <div>
-                      <a
-                        href="/"
-                        className="inline-flex w-full justify-center rounded-md border dark:bg-[#24272c] dark:hover:bg-dark border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-100"
-                      >
-                        <span className="sr-only">Sign up with Twitter</span>
-                        <BsTwitter className="text-xl" />
-                      </a>
-                    </div>
-
-                    <div>
-                      <a
-                        href="/"
-                        className="inline-flex w-full justify-center rounded-md border dark:bg-[#24272c] dark:hover:bg-dark border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-100"
-                      >
-                        <span className="sr-only">Sign up with Google</span>
-                        <AiOutlineGoogle className="text-xl" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="relative mt-6">
-                  <div
-                    className="absolute inset-0 flex items-center"
-                    aria-hidden="true"
-                  >
-                    <div className="w-full border-t border-gray-300" />
-                  </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="bg-gray-100 dark:bg-[#2b2f35] dark:text-light px-3 py-1 text-secondary-400 dark:text-secondary-400 rounded shadow">
-                      Or continue with
-                    </span>
-                  </div>
-                </div>
+                <Oauth type={'Sign up'} />
+                <SeparatorText text={'Or continue with'} />
               </div>
-
               <div className="mt-6">
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-200"
-                    >
-                      Full Name
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="name"
-                        name="name"
-                        type="text"
-                        autoComplete="name"
-                        value={name}
-                        onChange={handleChange}
-                        className="block w-full appearance-none rounded-md border dark:text-light dark:border-gray-700 dark:bg-[#24272c80] border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-200"
-                    >
-                      Email address
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        autoComplete="email"
-                        value={email}
-                        onChange={handleChange}
-                        className="block w-full appearance-none rounded-md border dark:text-light dark:border-gray-700 dark:bg-[#24272c80] border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <label
-                      htmlFor="password"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-200"
-                    >
-                      Password
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        autoComplete="password"
-                        value={password}
-                        onChange={handleChange}
-                        className="block w-full appearance-none rounded-md border dark:text-light dark:border-gray-700 dark:bg-[#24272c80] border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <label
-                      htmlFor="confirmPassword"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-200"
-                    >
-                      Confirm Password
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        type="password"
-                        autoComplete="confirmPassword"
-                        value={confirmPassword}
-                        onChange={handleChange}
-                        
-                        className="block w-full appearance-none rounded-md border dark:text-light dark:border-gray-700 dark:bg-[#24272c80] border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <button
-                      type="submit"
-                      className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                    >
-                      Sign up
-                    </button>
-                  </div>
+                  <Input
+                    labelText={'Full Name'}
+                    type={'text'}
+                    name={'name'}
+                    value={name}
+                    onChange={handleChange}
+                  />
+                  <Input
+                    labelText={'Email Address'}
+                    type={'email'}
+                    value={email}
+                    onChange={handleChange}
+                  />
+                  <Input
+                    labelText={'Password'}
+                    type={'password'}
+                    value={password}
+                    onChange={handleChange}
+                  />
+                  <Input
+                    labelText={'Confirm Password'}
+                    type={'password'}
+                    name={'confirmPassword'}
+                    value={confirmPassword}
+                    onChange={handleChange}
+                  />
+                  <Button text={'Sign up'} />
                 </form>
-                <div className="text-sm py-4 text-center">
-                  <span className="font-medium text-secondary dark:text-gray-50 mr-2">
-                    Already have an Account?
-                  </span>
-                  <Link
-                    to="/sign-in"
-                    className="font-semibold text-md text-primary-400 hover:text-primary-500"
-                  >
-                    Sign In
-                  </Link>
-                </div>
+                <RedirectAuth type={'Sign in'} link={'/sign-in'} />
               </div>
-            </div>
+            </section>
           </div>
         </div>
         <div className="relative hidden w-0 flex-1 lg:block">
@@ -215,7 +90,7 @@ const SignUp = () => {
             alt=""
           />
         </div>
-      </div>
+      </section>
     </>
   );
 };
