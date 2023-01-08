@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/20/solid';
-import { MenuItem, MobileMenuItem } from './index.js';
+import { MenuItem, MobileMenuItem } from '../index.js';
 import { Link } from 'react-router-dom';
 
 const NavBar = ({ theme, handleThemeSwitch }) => {
