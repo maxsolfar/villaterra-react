@@ -1,9 +1,9 @@
 import Home from "./Home";
 import Offers from "./Offers";
-import ForgotPassword from "./ForgotPassword";
+import ForgotPassword from "./Auth/ForgotPassword";
 import Profile from "./Profile";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
+import SignIn from "./Auth/SignIn";
+import SignUp from "./Auth/SignUp";
 
 export {
   Home,

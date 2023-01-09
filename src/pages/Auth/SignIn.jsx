@@ -1,23 +1,72 @@
-import React from 'react';
-import { Button, Heading, Input, Oauth, RedirectAuth, SeparatorText } from '../components';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  Button,
+  Heading,
+  Input,
+  Oauth,
+  RedirectAuth,
+  SeparatorText,
+} from '../../components';
+import { signIn } from '../../firebase/signIn';
 
 const SignIn = () => {
+  const navigate = useNavigate();
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+  });
+  const { email, password } = data;
+  const handleChange = (e) => {
+    setData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+  const redirectHome = () => {
+    setTimeout(()=>{
+      navigate('/');
+    },2500);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    signIn(email, password).then(
+      (result) => result === 'success' && redirectHome()
+    );
+  };
   return (
     <>
       <section className="flex min-h-full h-[calc(100vh-64px)]">
         <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-28">
           <div className="mx-auto w-full max-w-sm lg:w-96">
-            <Heading title={"Sign in to your account"} ext={"and"} subtitle={"let's get started"}/>
+            <Heading
+              title={'Sign in to your account'}
+              ext={'and'}
+              subtitle={"let's get started"}
+            />
             <section className="mt-8">
               <div>
                 <Oauth type={'Sign in'} />
                 <SeparatorText text={'Or continue with'} />
               </div>
               <div className="mt-6">
-                <form action="#" method="POST" className="space-y-6">
-                  <Input labelText={'Email address'} type={'email'} />
-                  <Input labelText={'Password'} type={'password'} />
-                
+                <form
+                  onSubmit={handleSubmit}
+                  className="space-y-6"
+                >
+                  <Input
+                    labelText={'Email address'}
+                    type={'email'}
+                    value={email}
+                    onChange={handleChange}
+                  />
+                  <Input
+                    labelText={'Password'}
+                    type={'password'}
+                    value={password}
+                    onChange={handleChange}
+                  />
+
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <input
@@ -35,15 +84,15 @@ const SignIn = () => {
                     </div>
 
                     <div className="text-sm">
-                      <a
-                        href="/"
+                      <Link
+                        to="/forgot-password"
                         className="font-medium text-primary-400 hover:text-primary-500"
                       >
                         Forgot your password?
-                      </a>
+                      </Link>
                     </div>
                   </div>
-                  <Button text={"Sign in"}/>
+                  <Button text={'Sign in'} />
                 </form>
                 <RedirectAuth type={'Sign up'} link={'/sign-up'} />
               </div>
