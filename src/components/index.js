@@ -7,6 +7,7 @@ import { SeparatorText } from "./Auth/Utils";
 import Input from "./Auth/Input";
 import Heading from "./Auth/Heading";
 import Button from "./Auth/Button";
+import Footer from "./Footer/Footer";
 
 export {
   NavBar,
@@ -17,5 +18,6 @@ export {
   SeparatorText,
   Input,
   Heading,
-  Button
+  Button,
+  Footer
 }
