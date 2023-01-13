@@ -8,6 +8,7 @@ import Input from "./Auth/Input";
 import Heading from "./Auth/Heading";
 import Button from "./Auth/Button";
 import Footer from "./Footer/Footer";
+import Header from "./Header/Header";
 
 export {
   NavBar,
@@ -19,5 +20,6 @@ export {
   Input,
   Heading,
   Button,
-  Footer
+  Footer,
+  Header
 }
