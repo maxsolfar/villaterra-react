@@ -25,10 +25,6 @@ const NavBar = ({ theme, handleThemeSwitch }) => {
       title: 'Offers',
       url: '/sign-up',
     },
-    {
-      title: 'Contact',
-      url: '/offers',
-    },
   ];
 
   function classNames(...classes) {
