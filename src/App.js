@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { NavBar } from './components';
-import { ForgotPassword, Home, Offers, Profile, SignIn, SignUp } from './pages';
+import { NavBar, PrivateRoute } from './components';
+import {
+  ForgotPassword,
+  Home,
+  Offers,
+  Profile,
+  SignIn,
+  SignUp,
+  About,
+} from './pages';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -27,11 +35,14 @@ function App() {
   };
 
   return (
-    <main className="bg-light dark:bg-[#1c1e22]">
+    <main className="bg-[#ffffff] dark:bg-[#1c1e22]">
       <NavBar theme={theme} handleThemeSwitch={handleThemeSwitch} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/profile" element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
         <Route path="/offers" element={<Offers />} />
         {/* Auth Pages */}
         <Route path="/sign-in" element={<SignIn />} />

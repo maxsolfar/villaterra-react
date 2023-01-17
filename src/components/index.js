@@ -9,6 +9,10 @@ import Heading from "./Auth/Heading";
 import Button from "./Auth/Button";
 import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
+import Partners from "./Sections/Partners";
+import CallToAction from "./Sections/CallToAction";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import HeaderProfile from "./HeaderProfile/HeaderProfile";
 
 export {
   NavBar,
@@ -21,5 +25,9 @@ export {
   Heading,
   Button,
   Footer,
-  Header
+  Header,
+  Partners,
+  CallToAction,
+  PrivateRoute,
+  HeaderProfile
 }
