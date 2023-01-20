@@ -25,8 +25,9 @@ const Oauth = ({ type }) => {
           email: user.email,
           timestamp: serverTimestamp(),
         });
-      }
-      navigate("/");
+      };
+      toast.success("Success, Redirecting...");
+      navigate("/profile");
 
     } catch (error) {
       toast.error("Could not authorize with Google");

@@ -25,8 +25,8 @@ const SignIn = () => {
   };
   const redirectHome = () => {
     setTimeout(()=>{
-      navigate('/');
-    },2500);
+      navigate('/profile');
+    },1500);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();

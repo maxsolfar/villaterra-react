@@ -1,7 +1,7 @@
 import { ChevronRightIcon, StarIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
 
-export default function Example() {
+const Header = () => {
   return (
     <div className="pb-8 sm:pb-12 lg:pb-12">
       <div className="overflow-hidden pt-8 sm:pt-12 lg:relative lg:py-16">
@@ -20,7 +20,7 @@ export default function Example() {
               <h1 className="text-4xl font-bold tracking-tight text-secondary dark:text-light sm:text-5xl">
                 Find your Smart Living Style
               </h1>
-              <p className="mt-6 text-lg text-gray-500">
+              <p className="mt-6 text-lg text-gray-500 dark:text-gray-400">
                 Looking for the perfect escape from your previous residence
                 with peace and quite? Imagine coming home to this!
               </p>
@@ -40,7 +40,7 @@ export default function Example() {
               <div className="mt-4 sm:mt-0 sm:ml-3">
                 <button
                   type="submit"
-                  className="block w-full rounded-md border border-transparent bg-primary-600 px-5 py-3 text-base font-medium text-white shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:px-10"
+                  className="block w-full rounded-md border border-transparent bg-primary-600 px-5 py-3 text-base font-medium text-white shadow hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 sm:px-10"
                 >
                   Notify me
                 </button>
@@ -99,3 +99,6 @@ export default function Example() {
     </div>
   );
 }
+
+
+export default Header;
