@@ -16,9 +16,8 @@ const SignUp = () => {
     name: '',
     email: '',
     password: '',
-    confirmPassword: '',
   });
-  const { name, email, password, confirmPassword } = data;
+  const { name, email, password } = data;
   const handleChange = (e) => {
     setData((prevState) => ({
       ...prevState,
@@ -32,7 +31,7 @@ const SignUp = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    signUp(email, password, name, data).then(
+    signUp(data).then(
       (result) => result === 'success' && redirectHome()
     );
   };
@@ -71,13 +70,6 @@ const SignUp = () => {
                     labelText={'Password'}
                     type={'password'}
                     value={password}
-                    onChange={handleChange}
-                  />
-                  <Input
-                    labelText={'Confirm Password'}
-                    type={'password'}
-                    name={'confirmPassword'}
-                    value={confirmPassword}
                     onChange={handleChange}
                   />
                   <Button text={'Sign up'} />

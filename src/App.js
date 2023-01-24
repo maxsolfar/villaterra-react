@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [theme, setTheme] = useState(localStorage.theme || 'light');
-
+  
   useEffect(() => {
     if (
       theme === 'dark' ||
