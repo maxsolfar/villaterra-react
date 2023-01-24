@@ -14,5 +14,5 @@ export const useStatusAuth = () => {
       setCheckingStatus(false);
     });
   }, []);
-  return { loggedIn, checkingStatus };
-}
+  return { loggedIn, setLoggedIn, checkingStatus };
+};
