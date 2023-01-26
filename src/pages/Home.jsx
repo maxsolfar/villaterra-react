@@ -1,9 +1,13 @@
 import React from 'react';
+import { Footer, Header, Partners, CallToAction } from '../components';
 
 const Home = () => {
   return (
     <main>
-      <h1>Home</h1>
+      <Header />
+      <Partners />
+      <CallToAction />
+      <Footer />
     </main>
   );
 };
