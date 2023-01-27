@@ -4,8 +4,9 @@ import { getAuth } from 'firebase/auth';
 import { db } from '../firebase/config';
 import { getDoc, doc } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
+import { ThreeDots } from 'react-loader-spinner';
 
-const Header = () => {
+const Profile = () => {
   const auth = getAuth();
   const [user, setUser] = useState('');
 
@@ -24,20 +25,38 @@ const Header = () => {
     }
   };
 
-    // Get user on mount
+  // Get user on mount
   useEffect(() => {
     fetchUserInfo();
   }, []);
 
-
-  return (
-    <main>
-      <HeaderProfile user={user}/>
-      <section>
-        <FormProfile />
+  if (!user) {
+    return (
+      <section className="w-full flex items-center justify-center">
+        <ThreeDots
+          height="80"
+          width="80"
+          radius="9"
+          color="#00C6BA"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClassName=""
+          visible={true}
+        />
       </section>
-    </main>
-  );
+    );
+  }
+
+  if (user) {
+    return (
+      <main>
+        <HeaderProfile user={user} />
+        <section>
+          <FormProfile user={user} />
+        </section>
+      </main>
+    );
+  }
 };
 
-export default Header;
+export default Profile;
