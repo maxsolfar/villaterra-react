@@ -9,6 +9,7 @@ import { ThreeDots } from 'react-loader-spinner';
 const Profile = () => {
   const auth = getAuth();
   const [user, setUser] = useState('');
+  const [render, setRender] = useState(false);
 
   const fetchUserInfo = async () => {
     const { uid } = auth.currentUser;
@@ -17,9 +18,7 @@ const Profile = () => {
 
     if (docSnap.exists()) {
       setUser(docSnap.data());
-      console.log('Document data:', user);
     } else {
-      // doc.data() will be undefined in this case
       console.log('No such document!');
       return;
     }
@@ -28,7 +27,8 @@ const Profile = () => {
   // Get user on mount
   useEffect(() => {
     fetchUserInfo();
-  }, []);
+    setRender(false);
+  }, [render]);
 
   if (!user) {
     return (
@@ -52,7 +52,7 @@ const Profile = () => {
       <main>
         <HeaderProfile user={user} />
         <section>
-          <FormProfile user={user} />
+          <FormProfile user={user} setRender={setRender} />
         </section>
       </main>
     );
