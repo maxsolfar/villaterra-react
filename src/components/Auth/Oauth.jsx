@@ -23,8 +23,8 @@ const Oauth = ({ type }) => {
         await setDoc(docRef, {
           name: user.displayName,
           email: user.email,
-          photoUrl: user.photoURL,
-          profileImage: "https://images.unsplash.com/photo-1584184087921-b397a56c13c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1971&q=80",
+          photoURL: user.photoURL,
+          imageProfile: "https://images.unsplash.com/photo-1584184087921-b397a56c13c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1971&q=80",
           description: "",
           timestamp: serverTimestamp(),
         });

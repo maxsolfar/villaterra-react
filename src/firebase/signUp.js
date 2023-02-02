@@ -22,7 +22,7 @@ export const signUp = async ({ email, password, name }) => {
       photoURL: defaultPhotoURL,
     });
     const user = userCredentials.user;
-    const data = { name, email, photoURL: defaultPhotoURL, profileImage: defaultProfileImage, description: '' };
+    const data = { name, email, photoURL: defaultPhotoURL, imageProfile: defaultProfileImage, description: '' };
     data.timestamp = serverTimestamp();
     await setDoc(doc(db, 'users', user.uid), data);
     toast.success('User Created!');
