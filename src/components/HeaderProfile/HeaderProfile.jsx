@@ -7,7 +7,7 @@ const HeaderProfile = ({ user }) => {
       <div>
         <img
           className="h-32 w-full object-cover lg:h-56"
-          src={user.profileImage}
+          src={user.imageProfile}
           alt="img-profile"
         />
       </div>
