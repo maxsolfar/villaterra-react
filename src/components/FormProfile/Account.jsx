@@ -50,7 +50,7 @@ const Account = ({user, setRender}) => {
         <div className="space-y-6 bg-light dark:bg-secondary py-6 px-4 sm:p-6">
           <div>
             <h3 className="text-lg font-medium leading-6 text-secondary dark:text-light">
-              Profile
+              Edit Your Profile
             </h3>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               This information will be displayed publicly so be careful what you

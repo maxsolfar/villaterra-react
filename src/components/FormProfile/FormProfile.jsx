@@ -2,20 +2,23 @@ import { useState } from 'react';
 import AsideForm from './AsideForm';
 import {
   HomeModernIcon,
-  KeyIcon,
+  ChartBarIcon,
   SquaresPlusIcon,
   UserCircleIcon,
+  PlusCircleIcon
 } from '@heroicons/react/24/outline';
-import ChangePassword from './ChangePassword';
+import MyReports from './MyReports';
 import Settings from './Settings';
 import MyProperties from './MyProperties';
 import Account from './Account';
+import CreateProperty from './CreateProperty';
 
 export default function FormProfile({ user, setRender }) {
   const navigation = [
     { name: 'Account', icon: UserCircleIcon, component: <Account user={user} setRender={setRender} />, current: true },
-    { name: 'Password', icon: KeyIcon,component: <ChangePassword />, current: false },
     { name: 'My Properties', icon: HomeModernIcon,component: <MyProperties />, current: false },
+    { name: 'New Property', icon: PlusCircleIcon,component: <CreateProperty />, current: false },
+    { name: 'My Reports', icon: ChartBarIcon,component: <MyReports />, current: false },
     { name: 'Settings', icon: SquaresPlusIcon,component: <Settings />, current: false },
   ];
   const [selectedTab, setSelectedTab] = useState(navigation.find(tab => tab.current));
